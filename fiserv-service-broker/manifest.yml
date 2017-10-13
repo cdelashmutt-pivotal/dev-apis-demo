@@ -1,0 +1,9 @@
+---
+applications:
+- name: fiserv-service-broker
+  path: ./build/libs/fiserv-service-broker-0.0.1-SNAPSHOT.jar
+  buildpack: java_buildpack
+  env:
+    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+    SERVICE_URL: https://epay-service.cfapps.io
+    SECURITY_USER_PASSWORD: fiserv

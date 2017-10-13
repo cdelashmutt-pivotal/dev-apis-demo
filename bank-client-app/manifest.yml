@@ -1,0 +1,10 @@
+---
+applications:
+- name: bank-client-app
+  random-route: true
+  path: ./build/libs/bank-client-app-0.0.1-SNAPSHOT.jar
+  buildpack: java_buildpack
+  env:
+    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+  services:
+  - myHystrixService
