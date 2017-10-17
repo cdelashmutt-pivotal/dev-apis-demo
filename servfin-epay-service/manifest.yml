@@ -1,7 +1,7 @@
 ---
 applications:
-- name: epay-service
-  path: ./build/libs/fiserv-epay-service-0.0.1-SNAPSHOT.jar
+- name: servfin-epay-service
+  path: ./build/libs/servfin-epay-service-0.0.1-SNAPSHOT.jar
   buildpack: java_buildpack
   env:
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom

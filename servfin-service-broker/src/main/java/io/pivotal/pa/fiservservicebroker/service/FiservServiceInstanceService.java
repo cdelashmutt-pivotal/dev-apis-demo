@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class FiservServiceInstanceService
 		implements ServiceInstanceService {
 
-	@Value("${service.url}")
+	@Value("${service.url:http://fiserv.com}")
 	private String serviceUrl = "http://fiserv.com";
 
 	@Override

@@ -13,7 +13,7 @@ import java.util.*;
 @SpringBootApplication
 public class FiservServiceBrokerApplication {
 
-	@Value("${service.url}")
+	@Value("${service.url:http://fiserv.com}")
 	private String serviceUrl = "http://fiserv.com";
 
 	public static void main(String[] args) {

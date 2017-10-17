@@ -6,5 +6,6 @@ applications:
   buildpack: java_buildpack
   env:
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
-  services:
-  - myHystrixService
+#  Not binding to services so that we can create Circuit Breaker Dashboard, push, and then wait for the Dashboard service to complete creation before we bind
+#  services:
+#  - myHystrixService
