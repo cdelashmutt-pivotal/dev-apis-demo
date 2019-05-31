@@ -5,5 +5,5 @@ applications:
   buildpack: java_buildpack_offline
   env:
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
-    SERVICE_URL: https://epay-service.cfapps.io
     SECURITY_USER_PASSWORD: servfin
+#    SERVICE_URL: https://epay-service.cfapps.io
