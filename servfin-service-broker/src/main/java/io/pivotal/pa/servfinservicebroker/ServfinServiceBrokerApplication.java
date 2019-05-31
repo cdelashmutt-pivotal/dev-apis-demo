@@ -54,7 +54,7 @@ public class ServfinServiceBrokerApplication {
 								.metadata("longDescription", "Access to Servfin's APIs for integration into your custom applications")
 								.metadata("providerDisplayName", "Servfin")
 								.metadata("documentationUrl", serviceUrl + "/docs/api-guide.html")
-								.metadata("supportUrl", "https://www.fiserv.com/about/contact-us.aspx")
+								.metadata("supportUrl", "https://pivotal.io/support")
 								.build()
 				)
 				.build();
