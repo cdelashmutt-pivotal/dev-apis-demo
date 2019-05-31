@@ -1,4 +1,4 @@
-package io.pivotal.pa.fiservepayservice.support;
+package io.pivotal.pa.servfinepayservice.support;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

@@ -1,6 +1,6 @@
-package io.pivotal.pa.fiservepayservice.repository;
+package io.pivotal.pa.servfinepayservice.repository;
 
-import io.pivotal.pa.fiservepayservice.model.Bill;
+import io.pivotal.pa.servfinepayservice.model.Bill;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.RequestParam;

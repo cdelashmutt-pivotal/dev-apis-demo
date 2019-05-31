@@ -1,10 +1,10 @@
-package io.pivotal.pa.fiservservicebroker.service;
+package io.pivotal.pa.servfinservicebroker.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.servicebroker.model.CreateServiceInstanceAppBindingResponse;
-import org.springframework.cloud.servicebroker.model.CreateServiceInstanceBindingRequest;
-import org.springframework.cloud.servicebroker.model.CreateServiceInstanceBindingResponse;
-import org.springframework.cloud.servicebroker.model.DeleteServiceInstanceBindingRequest;
+import org.springframework.cloud.servicebroker.model.binding.CreateServiceInstanceAppBindingResponse;
+import org.springframework.cloud.servicebroker.model.binding.CreateServiceInstanceBindingRequest;
+import org.springframework.cloud.servicebroker.model.binding.CreateServiceInstanceBindingResponse;
+import org.springframework.cloud.servicebroker.model.binding.DeleteServiceInstanceBindingRequest;
 import org.springframework.cloud.servicebroker.service.ServiceInstanceBindingService;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ import java.util.UUID;
  * Created by cdelashmutt on 10/5/17.
  */
 @Service
-public class FiservServiceInstanceBindingService
+public class ServfinServiceInstanceBindingService
 		implements ServiceInstanceBindingService {
 
-	@Value("${service.url:http://fiserv.com}")
-	private String serviceUrl = "http://fiserv.com";
+	@Value("${service.url:http://servfin.com}")
+	private String serviceUrl = "http://servfin.com";
 
 	@Override
 	public CreateServiceInstanceBindingResponse createServiceInstanceBinding(CreateServiceInstanceBindingRequest request) {
@@ -28,7 +28,9 @@ public class FiservServiceInstanceBindingService
 		creds.put("uri", serviceUrl);
 		creds.put("apiToken", UUID.randomUUID().toString());
 
-		return new CreateServiceInstanceAppBindingResponse().withCredentials(creds);
+		return CreateServiceInstanceAppBindingResponse.builder()
+				.credentials(creds)
+				.build();
 	}
 
 	@Override

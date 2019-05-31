@@ -2,6 +2,8 @@
 applications:
 - name: servfin-epay-service
   path: ./build/libs/servfin-epay-service-0.0.1-SNAPSHOT.jar
-  buildpack: java_buildpack
+  buildpack: java_buildpack_offline
   env:
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
+    SPRING_PROFILES_ACTIVE: cloud

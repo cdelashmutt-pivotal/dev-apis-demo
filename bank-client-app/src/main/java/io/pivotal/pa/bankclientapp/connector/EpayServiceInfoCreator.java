@@ -11,7 +11,7 @@ import java.util.Map;
 public class EpayServiceInfoCreator extends CloudFoundryServiceInfoCreator<EpayServiceInfo> {
 
 	public EpayServiceInfoCreator() {
-		super(new Tags("fiserv"));
+		super(new Tags("servfin"));
 	}
 
 	@Override

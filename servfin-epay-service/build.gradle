@@ -1,18 +1,10 @@
-buildscript {
-	ext {
-		springBootVersion = '1.5.7.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+plugins {
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+	id "org.asciidoctor.convert" version "1.5.3"
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group = 'io.pivotal.pa'
 version = '0.0.1-SNAPSHOT'
@@ -22,28 +14,38 @@ repositories {
 	mavenCentral()
 }
 
-
 ext {
-	springCloudVersion = 'Dalston.SR3'
+	snippetsDir = file('build/generated-snippets')
 }
+ext['spring-restdocs.version'] = '2.0.3.RELEASE'
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-cloud-connectors')
-	compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile("org.springframework.boot:spring-boot-starter-data-jpa")
-	compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-	compile "io.springfox:springfox-swagger2:2.7.0"
-	compile('io.springfox:springfox-data-rest:2.7.0')
-	compile('io.springfox:springfox-swagger-ui:2.7.0')
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'io.pivotal.cfenv:java-cfenv-boot:1.0.0.RELEASE'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
-	runtime('com.h2database:h2')
-	//runtime('mysql:mysql-connector-java')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+test {
+	outputs.dir snippetsDir
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+bootJar {
+	dependsOn asciidoctor
+	from ("${asciidoctor.outputDir}/html5") {
+		into 'static/docs'
 	}
 }

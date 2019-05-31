@@ -1,4 +1,4 @@
-package io.pivotal.pa.fiservepayservice;
+package io.pivotal.pa.servfinservicebroker;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FiservEpayServiceApplicationTests {
+public class ServfinServiceBrokerApplicationTests {
 
 	@Test
 	public void contextLoads() {

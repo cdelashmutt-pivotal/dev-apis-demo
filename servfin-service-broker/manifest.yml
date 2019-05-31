@@ -2,8 +2,8 @@
 applications:
 - name: servfin-service-broker
   path: ./build/libs/servfin-service-broker-0.0.1-SNAPSHOT.jar
-  buildpack: java_buildpack
+  buildpack: java_buildpack_offline
   env:
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
     SERVICE_URL: https://epay-service.cfapps.io
-    SECURITY_USER_PASSWORD: fiserv
+    SECURITY_USER_PASSWORD: servfin

@@ -1,4 +1,4 @@
-package io.pivotal.pa.fiservepayservice.model;
+package io.pivotal.pa.servfinepayservice.model;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,6 +21,16 @@ public class Bill {
 	private String payorId;
 	private String amount;
 	private LocalDate dueDate;
+
+	public Bill() {
+	}
+
+	Bill(String billerName, String payorId, String amount, LocalDate dueDate) {
+		this.billerName = billerName;
+		this.payorId = payorId;
+		this.amount = amount;
+		this.dueDate = dueDate;
+	}
 
 	public String getId() {
 		return id;
@@ -60,5 +70,40 @@ public class Bill {
 
 	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
+	}
+
+	public static BillBuilder builder() {
+		return new BillBuilder();
+	}
+
+	public static class BillBuilder {
+		private String billerName;
+		private String payorId;
+		private String amount;
+		private LocalDate dueDate;
+
+		public BillBuilder withBillerName(final String billerName) {
+			this.billerName = billerName;
+			return this;
+		}
+
+		public BillBuilder withPayorId(final String payorId) {
+			this.payorId = payorId;
+			return this;
+		}
+
+		public BillBuilder withAmount(final String amount) {
+			this.amount = amount;
+			return this;
+		}
+
+		public BillBuilder withDueDate(final LocalDate dueDate) {
+			this.dueDate = dueDate;
+			return this;
+		}
+
+		public Bill build() {
+			return new Bill(billerName, payorId, amount, dueDate);
+		}
 	}
 }

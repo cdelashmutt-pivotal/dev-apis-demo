@@ -1,0 +1,116 @@
+= Bills API Guide
+Chris DeLashmutt;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:operation-curl-request-title: Example request
+:operation-http-response-title: Example response
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+
+The Bills API tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP verbs.
+
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PATCH`
+| Used to update an existing resource, including partial updates
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+
+The Bills API tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully
+
+| `201 Created`
+| A new resource has been created successfully. The resource's URI is available from the response's
+`Location` header
+
+| `204 No Content`
+| An update to an existing resource has been applied successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `404 Not Found`
+| The requested resource did not exist
+|===
+
+[[overview-errors]]
+== Errors
+
+Whenever an error response (status code >= 400) is returned, the body will contain a JSON object
+that describes the problem.
+
+[[overview-hypermedia]]
+== Hypermedia
+
+The Bills API uses hypermedia and resources include links to other resources in their
+responses. Responses are in https://github.com/mikekelly/hal_specification[Hypertext
+Application Language (HAL)] format. Links can be found beneath the `_links` key. Users of
+the API should not create URIs themselves, instead they should use the above-described
+links to navigate from resource to resource.
+
+[[resources]]
+= Resources
+
+
+
+[[resources-index]]
+== Index
+
+The index provides the entry point into the service.
+
+
+
+[[resources-bills]]
+== Bills
+
+The Bills resources is used to create and list bills
+
+
+
+[[resources-bills-list]]
+=== Listing bills
+
+A `GET` request will list all of the bills.
+
+operation::billsListExample[snippets='response-fields,curl-request,http-response,links']
+
+[[resources-bill-get]]
+=== Getting a particular bill
+
+A `GET` request to a specific bill ID will just return that one bill.
+
+operation::billGetExample[snippets='response-fields,curl-request,http-response,links']
+
+[[resources-bill-post]]
+=== Creating a bill
+
+A `POST` request to the bills endpoint with a JSON body will create a new bill.
+
+operation::billPostExample[snippets='curl-request,http-response']

@@ -3,7 +3,7 @@
 cd bank-client-app
 
 cf cs p-circuit-breaker-dashboard standard myHystrixService
-cf create-service fiserv epay epay
+cf create-service servfin epay epay
 
 cf push --no-start
 

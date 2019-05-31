@@ -14,13 +14,13 @@ service_broker_hostname=$2
 service_domain=$3
 
 cd servfin-epay-service
-cf push -n $service_hostname
+cf push -n $service_hostname -d $service_domain
 
 cd ../servfin-service-broker
 cf push --no-start
 cf set-env servfin-service-broker SERVICE_URL https://$service_hostname.$service_domain
 cf start servfin-service-broker
 
-cf create-service-broker fiserv user fiserv https://$service_broker_hostname.$service_domain --space-scoped
+cf create-service-broker servfin user servfin https://$service_broker_hostname.$service_domain --space-scoped
 
 cd ..
