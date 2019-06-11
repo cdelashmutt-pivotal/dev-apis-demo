@@ -1,0 +1,27 @@
+plugins {
+    id "io.spring.dependency-management" version "1.0.7.RELEASE"
+    id 'java'
+}
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'io.pivotal.cfenv:java-cfenv-boot:1.0.1.RELEASE'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.pivotal.cfenv:java-cfenv-test-support:1.0.1.RELEASE'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.5.RELEASE'
+    }
+}

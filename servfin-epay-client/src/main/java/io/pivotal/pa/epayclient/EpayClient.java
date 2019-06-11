@@ -1,4 +1,4 @@
-package io.pivotal.pa.bankclientapp.connector;
+package io.pivotal.pa.epayclient;
 
 import java.util.Collection;
 

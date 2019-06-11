@@ -1,0 +1,17 @@
+{
+  "binding_name": null,
+  "credentials": {
+	"uri": "$uri",
+	"apiToken": "$apiToken"
+  },
+  "instance_name": "epay-service",
+  "label": "servfin",
+  "name": "epay-service",
+  "plan": "epay",
+  "provider": null,
+  "syslog_drain_url": null,
+  "tags": [
+	"servfin"
+  ],
+  "volume_mounts": []
+}

@@ -1,4 +1,4 @@
-package io.pivotal.pa.bankclientapp.connector;
+package io.pivotal.pa.epayclient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,15 +22,18 @@ import java.util.List;
  */
 public class DefaultEpayClient implements EpayClient {
 
-	RestOperations restOperations;
+	private RestOperations restOperations;
 
 	private String uri;
 
-	Logger log = LoggerFactory.getLogger(DefaultEpayClient.class);
+	private String apiToken;
 
-	public DefaultEpayClient(RestOperations restOperations, String uri) {
+	private Logger log = LoggerFactory.getLogger(DefaultEpayClient.class);
+
+	public DefaultEpayClient(RestOperations restOperations, String uri, String apiToken) {
 		this.restOperations = restOperations;
 		this.uri = uri;
+		this.apiToken = apiToken;
 	}
 
 	@Override
@@ -38,6 +41,7 @@ public class DefaultEpayClient implements EpayClient {
 		UriComponents uriComponents = UriComponentsBuilder
 				.fromUriString(String.format("%s/bills/search/findByPayorId", this.uri))
 				.queryParam("payorId", payorId)
+				.queryParam("apiToken", apiToken)
 				.build();
 		log.debug("Making request to: {}", uriComponents.toUriString());
 		RequestEntity<Void> request = RequestEntity.get(uriComponents.toUri()).accept(MediaTypes.HAL_JSON).build();
@@ -48,10 +52,18 @@ public class DefaultEpayClient implements EpayClient {
 
 		List<Bill> bills = new ArrayList<>();
 
-		billResponse.getBody().getContent().forEach(billResource -> bills.add(billResource.getContent()));
+		Collection<Resource<Bill>> resources = billResponse.getBody().getContent();
+		if (resources != null) resources.forEach(billResource -> bills.add(billResource.getContent()));
 
 		return bills;
 
 	}
 
+	public String getUri() {
+		return uri;
+	}
+
+	public String getApiToken() {
+		return apiToken;
+	}
 }

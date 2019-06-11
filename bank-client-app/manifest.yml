@@ -3,9 +3,8 @@ applications:
 - name: bank-client-app
   random-route: true
   path: ./build/libs/bank-client-app-0.0.1-SNAPSHOT.jar
-  buildpack: java_buildpack
+  buildpack: java_buildpack_offline
   env:
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
-#  Not binding to services so that we can create Circuit Breaker Dashboard, push, and then wait for the Dashboard service to complete creation before we bind
-#  services:
-#  - myHystrixService
+    JBP_CONFIG_SPRING_AUTOCONFIGURATION: '{enabled: false}'
+    SPRING_PROFILES_ACTIVE: cloud

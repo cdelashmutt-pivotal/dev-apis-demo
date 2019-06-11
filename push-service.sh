@@ -14,7 +14,10 @@ service_broker_hostname=$2
 service_domain=$3
 
 cd servfin-epay-service
-cf push -n $service_hostname -d $service_domain
+cf create-service p.mysql db-small db
+cf push -n $service_hostname -d $service_domain --no-start
+cf bs servfin-epay-service db
+cf start servfin-epay-service
 
 cd ../servfin-service-broker
 cf push --no-start

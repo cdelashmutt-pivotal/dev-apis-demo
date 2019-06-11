@@ -1,0 +1,3 @@
+io.pivotal.cfenv.spring.boot.CfEnvProcessor=io.pivotal.pa.epayclient.cfenv.EPayClientCfEnvProcessor
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.pivotal.pa.epayclient.autoconfigure.EPayClientAutoConfiguration

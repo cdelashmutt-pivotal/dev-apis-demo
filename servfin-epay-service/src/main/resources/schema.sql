@@ -1,0 +1,1 @@
+create table if not exists `bill` (`id` varchar(255) not null, `amount` varchar(255), `biller_name` varchar(255), `due_date` timestamp, `payor_id` varchar(255), primary key (`id`));

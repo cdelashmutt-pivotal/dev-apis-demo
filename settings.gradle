@@ -1,1 +1,1 @@
-include "servfin-service-broker", "servfin-epay-service", "bank-client-app"
+include "servfin-service-broker", "servfin-epay-service", "bank-client-app", "servfin-epay-client"

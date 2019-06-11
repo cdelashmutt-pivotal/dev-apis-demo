@@ -1,10 +1,16 @@
-package io.pivotal.pa.bankclientapp.connector;
+package io.pivotal.pa.epayclient.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.cloud.service.AbstractServiceConnectorCreator;
-import org.springframework.cloud.service.ServiceConnectorConfig;
+import io.pivotal.pa.epayclient.DefaultEpayClient;
+import io.pivotal.pa.epayclient.EpayClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.hateoas.mvc.TypeConstrainedMappingJackson2HttpMessageConverter;
@@ -18,17 +24,24 @@ import java.util.List;
 
 import static org.springframework.hateoas.MediaTypes.HAL_JSON;
 
-/**
- * Created by cdelashmutt on 10/11/17.
- */
-public class EpayServiceConnectorCreator extends AbstractServiceConnectorCreator<EpayClient, EpayServiceInfo> {
+@Configuration
+@ConditionalOnMissingBean(EpayClient.class)
+@ConditionalOnProperty(
+		name = "io.pivotal.pa.epayclient.uri")
+@EnableConfigurationProperties(EPayClientProperties.class)
+public class EPayClientAutoConfiguration {
 
-	@Override
-	public EpayClient create(EpayServiceInfo serviceInfo, ServiceConnectorConfig serviceConnectorConfig) {
-		return new DefaultEpayClient(getRestTemplateWithHalMessageConverter(), serviceInfo.getUri());
+	@Autowired
+	private EPayClientProperties properties;
+
+	@Bean
+	public EpayClient clientBean() {
+		return new DefaultEpayClient(getRestTemplateWithHalMessageConverter(),
+				properties.getUri(),
+				properties.getApiToken());
 	}
 
-	public RestTemplate getRestTemplateWithHalMessageConverter() {
+	private RestTemplate getRestTemplateWithHalMessageConverter() {
 		RestTemplate restTemplate = new RestTemplate();
 		List<HttpMessageConverter<?>> existingConverters = restTemplate.getMessageConverters();
 		List<HttpMessageConverter<?>> newConverters = new ArrayList<>();
@@ -48,4 +61,5 @@ public class EpayServiceConnectorCreator extends AbstractServiceConnectorCreator
 		halConverter.setObjectMapper(objectMapper);
 		return halConverter;
 	}
+
 }
